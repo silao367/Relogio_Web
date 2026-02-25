@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relógio Analógico</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root{
+            --primary-color: #f0f2f5;
+            --white-color: #ffffff;
+            --black-color: #000000;
+            --red-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="clock">
+
+            <!-- Números do relógio -->
+            <label style="--1:1"><span>1</span></label>
+            <label style="--1:2"><span>2</span></label>
+            <label style="--1:3"><span>3</span></label>
+            <label style="--1:4"><span>4</span></label>
+            <label style="--1:5"><span>5</span></label>
+            <label style="--1:6"><span>6</span></label>
+            <label style="--1:7"><span>7</span></label>
+            <label style="--1:8"><span>8</span></label>
+            <label style="--1:9"><span>9</span></label>
+            <label style="--1:10"><span>10</span></label>
+            <label style="--1:11"><span>11</span></label>
+            <label style="--1:12"><span>12</span></label>
+
+            <!-- Ponteiros -->
+            <div class="indicator">
+                <span class="hand hour"></span>
+                <span class="hand minute"></span>
+                <span class="hand second"></span>
+            </div>
+
+        </div>
+
+        <button class="mode-switch">Modo Escuro</button>
+
+    </div>
+
+<script>
+    const body = document.querySelector("body");
+    const modeSwitch = document.querySelector(".mode-switch");
+
+    const hourHand = document.querySelector(".hour");
+    const minuteHand = document.querySelector(".minute");
+    const secondHand = document.querySelector(".second");
+
+    // Alternar modo escuro
+    modeSwitch.addEventListener("click", () => {
+        body.classList.toggle("dark");
+        if(body.classList.contains("dark")){
+            modeSwitch.textContent = "Modo Claro";
+        } else {
+            modeSwitch.textContent = "Modo Escuro";
+        }
+    });
+
+    // Função do relógio
+    function updateClock(){
+        const now = new Date();
+
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+
+        const secondDeg = seconds * 6;
+        const minuteDeg = minutes * 6;
+        const hourDeg = hours * 30 + minutes * 0.5;
+
+        secondHand.style.transform = `rotate(${secondDeg}deg)`;
+        minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+        hourHand.style.transform = `rotate(${hourDeg}deg)`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+
+</body>
+</html>
